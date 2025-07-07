@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Crime Trend Dashboard</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="js/main.js" defer></script>
+</head>
+<body>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      loadStates();
+      renderFilters();
+    });
+  </script>
+
+  <div class="container">
+    <h1>Women Crime Dashboard</h1>
+
+    <!-- Controls -->
+    <div class="controls">
+      <label for="trend">Select Trend:</label>
+      <select id="trend" onchange="renderFilters()">
+        <option value="total_crimes_per_year">Total Crimes per Year</option>
+        <option value="total_crimes_per_state">Total Crimes per State</option>
+        <option value="specific_crime_trend">Specific Crime Type Trend</option>
+        <option value="state_crime_breakdown">Crimes by Type in a State</option>
+      </select>
+
+      <div id="filters" class="filters">
+        <!-- Dynamic filters injected here -->
+      </div>
+
+      <label for="chartType">Chart Type:</label>
+      <select id="chartType">
+        <option value="bar">Bar</option>
+        <option value="pie">Pie</option>
+        <option value="line">Line</option>
+      </select>
+
+      <button onclick="renderGraph()">Show Trend</button>
+    </div>
+
+    <!-- Buttons -->
+    <div style="margin-top: 20px;">
+      <button onclick="resetGraph()">Reset</button>
+      <button onclick="downloadChart()">Download Chart as PNG</button>
+    </div>
+
+    <!-- Chart Placeholder -->
+    <div class="canvas" width="950" height="0">
+      <h2>Trends</h2>
+    </div>
+    <canvas id="chartCanvas" width="950" height="500"></canvas>
+
+
+    <!-- Self-Defense Article -->
+    <div class="scrollable-article-enhanced">
+  <h2>Self‑Defence Essentials: Awareness, Preparation & Action</h2>
+  <p>If you stick with proven strategies and simple gross-motor-movement techniques — such as the 10
+described here — your chance of surviving will increase drastically.</p>
+<section>
+  <h4>1. Trust Your Instincts</h4>
+  <div class="flex-row">
+    <p>Too many women enroll in a self-defense class after they’ve been assaulted. When they recount the incident, they often say the same thing: “I had this bad feeling, but I told myself not to be paranoid,” or “I knew I shouldn’t have gone, but I didn’t want to hurt his feelings.” If something doesn’t feel right, it probably isn’t safe — that’s the bottom line. Many women have been conditioned to ignore the little voice that tells them trouble is coming. Your instinct is the best detector of danger. The next time you hear that little voice, listen to what it’s saying.</p>
+  </div>
+</section>
+
+<section>
+  <h4>2. PRACTICE TARGET DENIAL</h4>
+  <div class="flex-row">
+    <img src="PRACTICE TARGET DENIAL.jpg" alt="Stay Aware" class="img-left">
+    <p>Don’t make yourself an accessible target. The outcome of a battle is often determined before the first blow is struck. When you have the opportunity to escape from a situation before it turns bad, take it. If an approaching person gives you the creeps, walk to the other side of the street. If an elevator door opens and the guy standing inside makes the hair on the back of your neck stand up, wait for the next elevator. Those actions aren’t cowardly; rather, they’re a smart way to eliminate danger.</p>
+  </div>
+</section>
+
+<section>
+  <h4>3. PRESENT YOURSELF WITH CONFIDENCE</h4>
+  <div class="flex-row">
+    <p>Be aware of the message your body sends to those around you. Like animals, human predators target those they consider the weakest or most vulnerable. Attackers search for women who appear frightened, confused or distracted. Remember that attackers do not want to bait a fight; they want an easy mark. By walking with confidence and awareness — looking around and keeping your head up and shoulders back — you’ll dramatically reduce the likelihood of becoming a target in the first place.</p>
+  </div>
+</section>
+
+<section>
+  <h4>4. SET STRONG VERBAL BOUNDARIES</h4>
+  <div class="flex-row">
+    <p>Good verbal skills are an effective self-defense tool, one you’re likely to use more frequently and successfully than any physical technique. When a predator engages you in conversation, he’s actually “interviewing” you to see if you’ll make a good victim. An experienced attacker is practiced at using his words to freeze you with fear. If you stand tall, remain calm and respond confidently and assertively, you’ll probably “fail” his interview. The power of your voice alone can cause him to seek an easier target.</p>
+  </div>
+</section>
+
+<section>
+  <h4>5. MAINTAIN A NON-CONFRONTATIONAL STANCE</h4>
+  <div class="flex-row">
+    <p>In a self-defense situation, one of your secret weapons is the element of surprise. If you assume a martial arts stance, it immediately tells the attacker that you know how to fight. In response, he’s likely to be more aggressive. Instead, use a confident, relaxed stance in which your hips and shoulders are forward, your arms are bent, and your hands are up and open. This conciliatory posture may mislead the attacker into thinking you’re willing to comply. If it becomes necessary for you to strike, he probably won’t be prepared for it.</p>
+  </div>
+</section>
+
+<section>
+  <h4>6. KEEP A SAFE DISTANCE</h4>
+  <div class="flex-row">
+    <p>Everyone has a comfort zone or personal space. When an aggressor enters that zone, you’re uncomfortable because you know you’d need that space if you had to fight back. You should try to maintain approximately one to one-and-a-half arm lengths between yourself and the aggressor. If he starts closing in, use verbal boundaries. If he still doesn’t back off, it’s time to get physical.</p>
+  </div>
+</section>
+
+<section>
+  <h4>7. USE THE ELEMENT OF SURPRISE</h4>
+  <div class="flex-row">
+    <p>Most predators assume you cannot defend yourself. You should take advantage of the element of surprise. If you’re engaged in a conversation, you can use verbal skills and a non-confrontational stance to entice the aggressor into dropping his guard. If you’re grabbed from behind, respond immediately. Putting up a fight can surprise him and increase your chance of landing the first blow.</p>
+  </div>
+</section>
+
+<section>
+  <h4>8. KEEP YOUR TECHNIQUES SIMPLE</h4>
+  <div class="flex-row">
+    <img src="self defence techniques.jpg" alt="Plan Your Route" class="img-right">
+    <p>One of the main effects of an adrenaline release is the loss of fine motor skills. That means simple gestures become harder. No matter which martial art you practice, learn techniques that are basic and stick with them. Recommended: heel-palm strike, eye strike, and knee strike. These simple moves are effective and can work in both standing and ground scenarios.</p>
+  </div>
+</section>
+
+<section>
+  <h4>9. DON’T PANIC IF YOU’RE KNOCKED DOWN</h4>
+  <div class="flex-row">
+    <p>More often than not, women end up on the ground when they’re assaulted. The good news is that most assailants are not skilled ground fighters. Heel-palm strikes and eye strikes work well on the ground. Side thrust kicks and knee strikes also give you an advantage. Wait for an opening, then act fast and powerfully.</p>
+  </div>
+</section>
+
+<section>
+  <h4>10. FOLLOW THROUGH</h4>
+  <div class="flex-row">
+    <p>The fight isn’t over until the threat no longer exists. You must be 110% committed to your safety. If you pause mid-fight, you lose the advantage. Once your opponent realizes you can fight, the battle becomes harder. Keep fighting until it’s safe to escape.</p>
+  </div>
+</section>
+  
+  <p class="closing">Remember: Self‑defence isn’t about winning a fight—it’s about survival. Awareness, readiness, and decisive action can save lives.</p>
+</div>
+
+
+    <!-- Helpline Numbers -->
+    <div class="helpline">
+      <h2>Important Helpline Numbers (State-wise)</h2>
+      <ul>
+      <li><strong>National Helpline (NCW):</strong> 78271 70170</li>
+      <li><strong>Emergency Services (ERSS):</strong> 112</li>
+      <li><strong>Women Helpline:</strong> 181</li>
+      <li><strong>All India Women Helpline:</strong> 1091</li>
+      </ul>
+    </div>
+  </div>
+</body>
+</html>
